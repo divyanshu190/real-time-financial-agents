@@ -1,0 +1,53 @@
+flowchart TB
+  subgraph S1["1. Live Data + Streaming"]
+    A["Live Inputs"] --> B["Event Standardization"]
+    B --> C["Pathway Streaming Engine"]
+  end
+  subgraph S2["2. Live Customer 360 + Features"]
+    D["Live Customer 360 State"] --> E["Incremental Feature Engine"]
+  end
+  subgraph S3["3. ML Signals"]
+    F["River HalfSpaceTrees — anomaly"]
+    G["LightGBM — churn risk"]
+    H["LightGBM — offer propensity"]
+    I["LightGBM — inferred life events"]
+  end
+  subgraph S4["4. Triggers + Decisioning"]
+    J["Deterministic Eligibility"]
+    K{"Real-time Trigger Engine"}
+    L["Next-best-action scoring"]
+  end
+  subgraph S5["5. Live Facts + Agent + LLM"]
+    M["Source-linked Live Fact Index"]
+    N["Event-triggered Agent"]
+    O["LLM / Template Personalization"]
+    P{"Response Guardrails"}
+  end
+  subgraph S6["6. Action + Evaluation"]
+    Q["Action Gateway + Audit"]
+    R["Event → Decision → Action Metrics"]
+    T["Feedback / Continuous Learning"]
+  end
+  C --> D
+  C --> F
+  D --> E
+  E --> G
+  E --> H
+  E --> I
+  D --> K
+  F --> K
+  G --> K
+  H --> K
+  I --> K
+  J --> K
+  K --> L
+  K --> M
+  L --> N
+  M --> N
+  N --> O
+  O --> P
+  P -->|approved| Q
+  P -->|fallback| Q
+  Q --> R
+  R --> T
+  T -. "future retraining loop" .-> G

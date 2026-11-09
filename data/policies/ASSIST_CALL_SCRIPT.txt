@@ -1,0 +1,1 @@
+Agents must verify identity before discussing declines; never reveal fraud-model internals.

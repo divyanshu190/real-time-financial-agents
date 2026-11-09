@@ -1,0 +1,1 @@
+Verification must never ask for full card number, PIN or OTP over message.
